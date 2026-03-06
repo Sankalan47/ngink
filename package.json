@@ -10,7 +10,8 @@
     "example:hello": "tsx --tsconfig tsconfig.node.json examples/hello-world/main.ts",
     "example:counter": "tsx --tsconfig tsconfig.node.json examples/counter/main.ts",
     "example:spinner": "tsx --tsconfig tsconfig.node.json examples/spinner/main.ts",
-    "example:todo": "tsx --tsconfig tsconfig.node.json examples/todo/main.ts"
+    "example:todo": "tsx --tsconfig tsconfig.node.json examples/todo/main.ts",
+    "example:interactive": "tsx --tsconfig tsconfig.node.json examples/interactive/main.ts"
   },
   "private": true,
   "type": "module",

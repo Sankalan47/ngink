@@ -11,6 +11,7 @@ import { createNode } from './renderer/ink-node.js';
 import { setRootNode, setRerenderFn } from './renderer/ink-renderer.js';
 import { InkRendererFactory } from './renderer/ink-renderer.factory.js';
 import { buildReactElement } from './bridge/react-bridge.js';
+import { InputBridge } from './bridge/input-bridge.js';
 
 // Minimal mock document for Node.js — Angular's image perf warning and other initializers need it
 const mockDocument = new Proxy({} as Document, {
@@ -32,9 +33,13 @@ export async function bootstrapCli(component: Type<any>): Promise<void> {
   const rootNode = createNode('root');
   setRootNode(rootNode);
 
+  // Helper that wraps Angular content + InputBridge in a single fragment
+  const buildRoot = (tree: React.ReactNode) =>
+    React.createElement(React.Fragment, null, tree, React.createElement(InputBridge, null));
+
   // 1. Start Ink first — takes over stdout, renders empty tree initially
-  const inkInstance = render(buildReactElement(rootNode) as React.ReactElement);
-  setRerenderFn(inkInstance.rerender);
+  const inkInstance = render(buildRoot(buildReactElement(rootNode)));
+  setRerenderFn((tree) => inkInstance.rerender(buildRoot(tree)));
 
   // 2. Bootstrap Angular — JIT compiles template, InkRenderer builds the node tree, scheduleRerender fires
   //    bootstrapApplication handles zone/zoneless setup correctly; our RendererFactory2 overrides the DOM renderer
