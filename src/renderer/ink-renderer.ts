@@ -76,10 +76,14 @@ export class InkRenderer implements Renderer2 {
     scheduleRerender();
   }
 
-  removeChild(parent: InkNode, oldChild: InkNode, _isHostElement?: boolean): void {
-    const idx = parent.children.indexOf(oldChild);
+  removeChild(parent: InkNode | null, oldChild: InkNode, _isHostElement?: boolean): void {
+    // Angular 21's nativeRemoveNode always passes null as parent.
+    // Fall back to the node's tracked parent reference.
+    const actualParent = parent ?? oldChild.parent;
+    if (!actualParent) return;
+    const idx = actualParent.children.indexOf(oldChild);
     if (idx !== -1) {
-      parent.children.splice(idx, 1);
+      actualParent.children.splice(idx, 1);
     }
     oldChild.parent = undefined;
     scheduleRerender();
