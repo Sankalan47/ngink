@@ -7,18 +7,18 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "example:hello": "tsx --tsconfig tsconfig.node.json examples/hello-world/main.ts",
-    "example:counter": "tsx --tsconfig tsconfig.node.json examples/counter/main.ts",
-    "example:spinner": "tsx --tsconfig tsconfig.node.json examples/spinner/main.ts",
-    "example:todo": "tsx --tsconfig tsconfig.node.json examples/todo/main.ts",
-    "example:interactive": "tsx --tsconfig tsconfig.node.json examples/interactive/main.ts"
+    "build:node": "ngc -p tsconfig.node.json",
+    "example:hello": "npm run build:node && node out-tsc/node/examples/hello-world/main.js",
+    "example:counter": "npm run build:node && node out-tsc/node/examples/counter/main.js",
+    "example:spinner": "npm run build:node && node out-tsc/node/examples/spinner/main.js",
+    "example:todo": "npm run build:node && node out-tsc/node/examples/todo/main.js",
+    "example:interactive": "npm run build:node && node out-tsc/node/examples/interactive/main.js"
   },
   "private": true,
   "type": "module",
   "packageManager": "npm@11.4.1",
   "dependencies": {
     "@angular/common": "^21.2.0",
-    "@angular/compiler": "^21.2.0",
     "@angular/core": "^21.2.0",
     "@angular/forms": "^21.2.0",
     "@angular/platform-browser": "^21.2.0",
@@ -32,6 +32,7 @@
   "devDependencies": {
     "@angular/build": "^21.2.1",
     "@angular/cli": "^21.2.1",
+    "@angular/compiler": "^21.2.0",
     "@angular/compiler-cli": "^21.2.0",
     "@types/react": "^19.2.14",
     "jsdom": "^28.0.0",

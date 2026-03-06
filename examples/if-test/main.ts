@@ -1,4 +1,3 @@
-import '@angular/compiler';
 import { Component, signal, NO_ERRORS_SCHEMA, OnDestroy } from '@angular/core';
 import { bootstrapCli } from '../../src/index.js';
 
