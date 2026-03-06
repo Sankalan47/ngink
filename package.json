@@ -1,42 +1,70 @@
 {
   "name": "ngink",
   "version": "0.0.0",
+  "description": "Angular-to-terminal rendering library using Ink",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/"
+  ],
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "build:lib": "ngc -p tsconfig.lib.json",
     "build:node": "ngc -p tsconfig.node.json",
+    "prepublishOnly": "npm run build:lib",
     "example:hello": "npm run build:node && node out-tsc/node/examples/hello-world/main.js",
     "example:counter": "npm run build:node && node out-tsc/node/examples/counter/main.js",
     "example:spinner": "npm run build:node && node out-tsc/node/examples/spinner/main.js",
     "example:todo": "npm run build:node && node out-tsc/node/examples/todo/main.js",
-    "example:interactive": "npm run build:node && node out-tsc/node/examples/interactive/main.js"
+    "example:interactive": "npm run build:node && node out-tsc/node/examples/interactive/main.js",
+    "dev:hello": "tsx --tsconfig tsconfig.node.json examples/hello-world/main.ts",
+    "dev:counter": "tsx --tsconfig tsconfig.node.json examples/counter/main.ts",
+    "dev:spinner": "tsx --tsconfig tsconfig.node.json examples/spinner/main.ts",
+    "dev:todo": "tsx --tsconfig tsconfig.node.json examples/todo/main.ts",
+    "dev:interactive": "tsx --tsconfig tsconfig.node.json examples/interactive/main.ts"
   },
   "private": true,
   "type": "module",
   "packageManager": "npm@11.4.1",
+  "peerDependencies": {
+    "@angular/compiler": "^21.0.0",
+    "@angular/core": "^21.0.0",
+    "@angular/platform-browser": "^21.0.0",
+    "ink": "^6.0.0",
+    "react": "^19.0.0"
+  },
   "dependencies": {
-    "@angular/common": "^21.2.0",
-    "@angular/core": "^21.2.0",
-    "@angular/forms": "^21.2.0",
-    "@angular/platform-browser": "^21.2.0",
-    "@angular/router": "^21.2.0",
-    "ink": "^6.8.0",
     "ink-spinner": "^5.0.0",
-    "react": "^19.2.4",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
     "@angular/build": "^21.2.1",
     "@angular/cli": "^21.2.1",
+    "@angular/common": "^21.2.0",
     "@angular/compiler": "^21.2.0",
     "@angular/compiler-cli": "^21.2.0",
+    "@angular/core": "^21.2.0",
+    "@angular/forms": "^21.2.0",
+    "@angular/platform-browser": "^21.2.0",
+    "@angular/router": "^21.2.0",
+    "@types/node": "^25.3.5",
     "@types/react": "^19.2.14",
+    "ink": "^6.8.0",
     "jsdom": "^28.0.0",
     "prettier": "^3.8.1",
+    "react": "^19.2.4",
     "tsx": "^4.21.0",
     "typescript": "~5.9.2",
     "vitest": "^4.0.8"

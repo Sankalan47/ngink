@@ -1,3 +1,8 @@
+// @angular/common and @angular/platform-browser ship as partial-compilation (linker) artifacts.
+// Their static initializers call ɵɵngDeclareFactory at module-load time, which requires the
+// compiler facade to be present. A static import here ensures @angular/compiler is evaluated
+// before those modules' static initializers run — a dynamic import() would be too late.
+import '@angular/compiler';
 import {
   Type,
   RendererFactory2,
@@ -33,9 +38,16 @@ export async function bootstrapCli(component: Type<any>): Promise<void> {
   const rootNode = createNode('root');
   setRootNode(rootNode);
 
-  // Helper that wraps Angular content + InputBridge in a single fragment
+  // Only mount InputBridge when stdin is a real TTY — useInput requires raw mode,
+  // which is unavailable in piped/non-interactive contexts.
+  const hasRawMode = !!process.stdin.isTTY;
   const buildRoot = (tree: React.ReactNode) =>
-    React.createElement(React.Fragment, null, tree, React.createElement(InputBridge, null));
+    React.createElement(
+      React.Fragment,
+      null,
+      tree,
+      hasRawMode ? React.createElement(InputBridge, null) : null,
+    );
 
   // 1. Start Ink first — takes over stdout, renders empty tree initially
   const inkInstance = render(buildRoot(buildReactElement(rootNode)));
