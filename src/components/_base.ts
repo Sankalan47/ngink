@@ -10,8 +10,8 @@ import { Directive, ElementRef, inject, OnChanges, Renderer2, SimpleChanges } fr
  */
 @Directive()
 export abstract class InkComponent implements OnChanges {
-  private _el = inject(ElementRef);
-  private _renderer = inject(Renderer2);
+  protected _el = inject(ElementRef);
+  protected _renderer = inject(Renderer2);
 
   ngOnChanges(changes: SimpleChanges): void {
     for (const key of Object.keys(changes)) {

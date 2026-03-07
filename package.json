@@ -37,7 +37,17 @@
     "dev:todo": "tsx --tsconfig tsconfig.node.json examples/todo/main.ts",
     "dev:interactive": "tsx --tsconfig tsconfig.node.json examples/interactive/main.ts",
     "dev:focus": "tsx --tsconfig tsconfig.node.json examples/focus/main.ts",
-    "dev:terminal": "tsx --tsconfig tsconfig.node.json examples/terminal/main.ts"
+    "dev:terminal": "tsx --tsconfig tsconfig.node.json examples/terminal/main.ts",
+    "example:aria": "npm run build:node && node out-tsc/node/examples/aria/main.js",
+    "example:border": "npm run build:node && node out-tsc/node/examples/border/main.js",
+    "example:chat": "npm run build:node && node out-tsc/node/examples/chat/main.js",
+    "example:suspense": "npm run build:node && node out-tsc/node/examples/suspense/main.js",
+    "dev:aria": "tsx --tsconfig tsconfig.node.json examples/aria/main.ts",
+    "dev:border": "tsx --tsconfig tsconfig.node.json examples/border/main.ts",
+    "dev:chat": "tsx --tsconfig tsconfig.node.json examples/chat/main.ts",
+    "dev:suspense": "tsx --tsconfig tsconfig.node.json examples/suspense/main.ts",
+    "example:table": "npm run build:node && node out-tsc/node/examples/table/main.js",
+    "dev:table": "tsx --tsconfig tsconfig.node.json examples/table/main.ts"
   },
   "private": true,
   "type": "module",

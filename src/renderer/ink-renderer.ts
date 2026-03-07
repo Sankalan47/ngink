@@ -132,7 +132,7 @@ export class InkRenderer implements Renderer2 {
   }
 
   listen(_target: any, _eventName: string, _callback: (event: any) => boolean | void): () => void {
-    return () => {}; // Phase 5: input handling
+    return () => {}; // No-op — terminal has no DOM events; keyboard/focus/resize are bridged via React hooks
   }
 
   // No-ops — no CSS in terminal

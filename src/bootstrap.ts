@@ -41,9 +41,6 @@ export async function bootstrapCli(component: Type<any>): Promise<void> {
   const rootNode = createNode('root');
   setRootNode(rootNode);
 
-  // Only mount InputBridge when stdin is a real TTY — useInput requires raw mode,
-  // which is unavailable in piped/non-interactive contexts.
-  const hasRawMode = !!process.stdin.isTTY;
   const buildRoot = (tree: React.ReactNode) =>
     React.createElement(
       React.Fragment,
@@ -52,7 +49,7 @@ export async function bootstrapCli(component: Type<any>): Promise<void> {
       React.createElement(FocusBridge, null),
       React.createElement(TerminalBridge, null),
       React.createElement(CursorBridge, null),
-      hasRawMode ? React.createElement(InputBridge, null) : null,
+      React.createElement(InputBridge, null),
     );
 
   // 1. Start Ink first — takes over stdout, renders empty tree initially

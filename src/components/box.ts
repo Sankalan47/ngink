@@ -1,5 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { InkComponent } from './_base.js';
+
+const ARIA_REMAP: Record<string, string> = {
+  ariaRole: 'aria-role',
+  ariaState: 'aria-state',
+  ariaHidden: 'aria-hidden',
+  ariaLabel: 'aria-label',
+};
 
 @Component({
   standalone: true,
@@ -62,4 +69,17 @@ export class Box extends InkComponent {
   @Input() overflowY?: 'visible' | 'hidden';
   @Input() position?: 'absolute' | 'relative';
   @Input() backgroundColor?: string;
+  // Aria (camelCase Angular inputs → hyphenated Ink props via ngOnChanges)
+  @Input() ariaRole?: 'button' | 'checkbox' | 'combobox' | 'list' | 'listbox' | 'listitem' | 'menu' | 'menuitem' | 'option' | 'progressbar' | 'radio' | 'radiogroup' | 'tab' | 'tablist' | 'table' | 'textbox' | 'timer' | 'toolbar';
+  @Input() ariaState?: { busy?: boolean; checked?: boolean; disabled?: boolean; expanded?: boolean; multiline?: boolean; multiselectable?: boolean; readonly?: boolean; required?: boolean; selected?: boolean };
+  @Input() ariaHidden?: boolean;
+  @Input() ariaLabel?: string;
+
+  override ngOnChanges(changes: SimpleChanges): void {
+    const el = this._el.nativeElement;
+    for (const key of Object.keys(changes)) {
+      const inkKey = ARIA_REMAP[key] ?? key;
+      this._renderer.setProperty(el, inkKey, changes[key].currentValue);
+    }
+  }
 }
