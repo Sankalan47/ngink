@@ -19,6 +19,7 @@ import { buildReactElement } from './bridge/react-bridge.js';
 import { InputBridge } from './bridge/input-bridge.js';
 import { FocusBridge } from './bridge/focus-bridge.js';
 import { TerminalBridge } from './bridge/terminal-bridge.js';
+import { CursorBridge } from './bridge/cursor-bridge.js';
 
 // Minimal mock document for Node.js — Angular's image perf warning and other initializers need it
 const mockDocument = new Proxy({} as Document, {
@@ -50,6 +51,7 @@ export async function bootstrapCli(component: Type<any>): Promise<void> {
       tree,
       React.createElement(FocusBridge, null),
       React.createElement(TerminalBridge, null),
+      React.createElement(CursorBridge, null),
       hasRawMode ? React.createElement(InputBridge, null) : null,
     );
 
