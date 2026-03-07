@@ -20,6 +20,12 @@ export function setRerenderFn(fn: (el: React.ReactElement) => void): void {
   rerenderFn = fn;
 }
 
+export function resetState(): void {
+  rootNode = createNode('root');
+  rerenderFn = null;
+  pending = false;
+}
+
 export function scheduleRerender(): void {
   if (pending) return;
   pending = true;
