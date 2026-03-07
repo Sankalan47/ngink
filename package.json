@@ -22,6 +22,7 @@
     "test": "ng test",
     "build:lib": "ngc -p tsconfig.lib.json",
     "build:node": "ngc -p tsconfig.node.json",
+    "watch:node": "ngc -p tsconfig.node.json --watch",
     "prepublishOnly": "npm run build:lib",
     "example:hello": "npm run build:node && node out-tsc/node/examples/hello-world/main.js",
     "example:counter": "npm run build:node && node out-tsc/node/examples/counter/main.js",

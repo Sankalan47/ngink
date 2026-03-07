@@ -1,8 +1,10 @@
-import { Component, signal, computed, effect, NO_ERRORS_SCHEMA, OnDestroy } from '@angular/core';
+import { Component, signal, computed, effect, OnDestroy } from '@angular/core';
+import { Box, Text } from '../../src/components/index.js';
 
 @Component({
   standalone: true,
   selector: 'app-counter',
+  imports: [Box, Text],
   template: `
     <Box [flexDirection]="'column'" [padding]="1" [borderStyle]="'round'">
       <Text [bold]="true" [color]="'cyan'">ngink Counter — Phase 2: Signal Reactivity</Text>
@@ -11,7 +13,6 @@ import { Component, signal, computed, effect, NO_ERRORS_SCHEMA, OnDestroy } from
       <Text [dimColor]="true">Updates every second. Ctrl+C to exit.</Text>
     </Box>
   `,
-  schemas: [NO_ERRORS_SCHEMA],
 })
 export class CounterComponent implements OnDestroy {
   count = signal(0);

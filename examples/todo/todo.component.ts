@@ -1,4 +1,5 @@
-import { Component, signal, computed, NO_ERRORS_SCHEMA, OnDestroy } from '@angular/core';
+import { Component, signal, computed, OnDestroy } from '@angular/core';
+import { Box, Text, Newline } from '../../src/components/index.js';
 
 interface TodoItem {
   id: number;
@@ -31,7 +32,7 @@ interface TodoItem {
       <Text [dimColor]="true">Ctrl+C to exit</Text>
     </Box>
   `,
-  schemas: [NO_ERRORS_SCHEMA],
+  imports: [Box, Text, Newline],
 })
 export class TodoComponent implements OnDestroy {
   todos = signal<TodoItem[]>([]);

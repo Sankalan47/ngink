@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Text, Newline, Spacer, Static } from 'ink';
+import { Box, Text, Newline, Spacer, Static, Transform } from 'ink';
 import Spinner from 'ink-spinner';
 import { InkNode } from '../renderer/ink-node.js';
 
@@ -29,6 +29,9 @@ export function buildReactElement(node: InkNode): React.ReactNode {
       // Static requires items + children render fn — cast to any since props come from user template
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return React.createElement(Static as any, node.props, ...children);
+    case 'transform':
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return React.createElement(Transform, node.props as any, ...children);
     default:
       return React.createElement(Box, node.props, ...children); // fallback for unknown elements
   }

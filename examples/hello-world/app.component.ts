@@ -1,9 +1,10 @@
-import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { Component } from '@angular/core';
+import { Text } from '../../src/components/index.js';
 
 @Component({
   standalone: true,
   selector: 'app-hello-world',
+  imports: [Text],
   template: `<Text>Hello from ngink!</Text>`,
-  schemas: [NO_ERRORS_SCHEMA], // Phase 1 workaround — Phase 3 will use real component imports
 })
 export class HelloWorldComponent {}

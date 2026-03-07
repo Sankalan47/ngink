@@ -1,5 +1,5 @@
-import { Component, signal, computed, inject, effect, NO_ERRORS_SCHEMA } from '@angular/core';
-import { InputService } from '../../src/index.js';
+import { Component, signal, computed, inject, effect } from '@angular/core';
+import { InputService, AppService, Box, Text, Newline } from '../../src/index.js';
 
 @Component({
   standalone: true,
@@ -26,10 +26,11 @@ import { InputService } from '../../src/index.js';
       }
     </Box>
   `,
-  schemas: [NO_ERRORS_SCHEMA],
+  imports: [Box, Text, Newline],
 })
 export class InteractiveComponent {
   private input = inject(InputService);
+  private app = inject(AppService);
 
   count = signal(0);
   lastKey = signal('');
@@ -57,7 +58,7 @@ export class InteractiveComponent {
         this.count.set(0);
         this.lastKey.set('r');
       } else if (input === 'q') {
-        process.exit(0);
+        this.app.exit();
       } else {
         this.lastKey.set(input || JSON.stringify(key));
       }

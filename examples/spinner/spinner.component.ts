@@ -1,10 +1,12 @@
-import { Component, signal, NO_ERRORS_SCHEMA, OnDestroy } from '@angular/core';
+import { Component, signal, OnDestroy } from '@angular/core';
+import { Box, Text, Spinner, Newline, Spacer } from '../../src/components/index.js';
 
 // Phase 3: Box, Text, Spinner, Newline, Spacer — all with full prop support
 // Note: @if/@else is Phase 4. This example uses only static structure + signal-driven prop changes.
 @Component({
   standalone: true,
   selector: 'app-spinner',
+  imports: [Box, Text, Spinner, Newline, Spacer],
   template: `
     <Box [flexDirection]="'column'" [padding]="1" [borderStyle]="'round'" [borderColor]="'cyan'">
       <Text [bold]="true" [color]="'cyan'">ngink — Phase 3: Layout Components</Text>
@@ -43,7 +45,6 @@ import { Component, signal, NO_ERRORS_SCHEMA, OnDestroy } from '@angular/core';
       <Text [dimColor]="true">Box · Text · Spinner · Newline · Spacer  |  Ctrl+C to exit</Text>
     </Box>
   `,
-  schemas: [NO_ERRORS_SCHEMA],
 })
 export class SpinnerComponent implements OnDestroy {
   elapsed = signal(0);
