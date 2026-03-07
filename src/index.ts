@@ -3,5 +3,6 @@ export { InkRendererFactory } from './renderer/ink-renderer.factory.js';
 export { InputService } from './services/input.service.js';
 export type { KeyPress } from './services/input.service.js';
 export { AppService } from './services/app.service.js';
-export { Box, Text, Newline, Spacer, Spinner, Static, Transform } from './components/index.js';
+export { FocusService } from './services/focus.service.js';
+export { Box, Text, Newline, Spacer, Spinner, Static, Transform, Focusable } from './components/index.js';
 export type { InkNode, InkNodeType } from './renderer/ink-node.js';

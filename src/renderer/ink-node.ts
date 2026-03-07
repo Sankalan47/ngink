@@ -7,6 +7,7 @@ export type InkNodeType =
   | 'spacer'
   | 'static'
   | 'transform'
+  | 'focusable'
   | 'raw-text'
   | 'comment';
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Text, Newline, Spacer, Static, Transform } from 'ink';
 import Spinner from 'ink-spinner';
 import { InkNode } from '../renderer/ink-node.js';
+import { FocusableReact } from './focus-bridge.js';
 
 export function buildReactElement(node: InkNode): React.ReactNode {
   // Empty root renders nothing — React.createElement(Fragment, null) is valid
@@ -32,6 +33,9 @@ export function buildReactElement(node: InkNode): React.ReactNode {
     case 'transform':
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return React.createElement(Transform, node.props as any, ...children);
+    case 'focusable':
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return React.createElement(FocusableReact, node.props as any, ...children);
     default:
       return React.createElement(Box, node.props, ...children); // fallback for unknown elements
   }

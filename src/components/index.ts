@@ -5,3 +5,4 @@ export { Spacer } from './spacer.js';
 export { Spinner } from './spinner.js';
 export { Static } from './static.js';
 export { Transform } from './transform.js';
+export { Focusable } from './focusable.js';
