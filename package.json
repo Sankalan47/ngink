@@ -30,12 +30,14 @@
     "example:todo": "npm run build:node && node out-tsc/node/examples/todo/main.js",
     "example:interactive": "npm run build:node && node out-tsc/node/examples/interactive/main.js",
     "example:focus": "npm run build:node && node out-tsc/node/examples/focus/main.js",
+    "example:terminal": "npm run build:node && node out-tsc/node/examples/terminal/main.js",
     "dev:hello": "tsx --tsconfig tsconfig.node.json examples/hello-world/main.ts",
     "dev:counter": "tsx --tsconfig tsconfig.node.json examples/counter/main.ts",
     "dev:spinner": "tsx --tsconfig tsconfig.node.json examples/spinner/main.ts",
     "dev:todo": "tsx --tsconfig tsconfig.node.json examples/todo/main.ts",
     "dev:interactive": "tsx --tsconfig tsconfig.node.json examples/interactive/main.ts",
-    "dev:focus": "tsx --tsconfig tsconfig.node.json examples/focus/main.ts"
+    "dev:focus": "tsx --tsconfig tsconfig.node.json examples/focus/main.ts",
+    "dev:terminal": "tsx --tsconfig tsconfig.node.json examples/terminal/main.ts"
   },
   "private": true,
   "type": "module",
