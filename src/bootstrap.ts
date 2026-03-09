@@ -46,10 +46,10 @@ export async function bootstrapCli(component: Type<any>): Promise<void> {
       React.Fragment,
       null,
       tree,
-      React.createElement(FocusBridge, null),
-      React.createElement(TerminalBridge, null),
-      React.createElement(CursorBridge, null),
-      React.createElement(InputBridge, null),
+      React.createElement(FocusBridge, { key: 'focus-bridge' }),
+      React.createElement(TerminalBridge, { key: 'terminal-bridge' }),
+      React.createElement(CursorBridge, { key: 'cursor-bridge' }),
+      React.createElement(InputBridge, { key: 'input-bridge' }),
     );
 
   // 1. Start Ink first — takes over stdout, renders empty tree initially

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useInput, useApp, useStdin } from 'ink';
 import type { Key } from 'ink';
 
@@ -28,7 +27,9 @@ export function InputBridge(): null {
       }
       keyHandler?.(input, key);
     },
-    { isActive: isRawModeSupported },
+    // stdin.isTTY is undefined (not false) in non-TTY environments.
+    // useInput guards with `=== false`, so undefined slips through and crashes.
+    { isActive: isRawModeSupported === true },
   );
 
   return null;
