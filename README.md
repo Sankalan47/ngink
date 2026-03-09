@@ -1,5 +1,5 @@
 # ngink
-
+<img width="2816" height="930" alt="ngink" src="https://github.com/user-attachments/assets/4032ea3f-ba6f-480e-964c-9fd2cfa54a26" />
 > Build interactive terminal applications with Angular.
 
 ngink is a rendering library that connects Angular's component model to [Ink](https://github.com/vadimdemedes/ink) — a React-based terminal UI framework. Write Angular components with real templates, signals, and dependency injection; ngink renders them to the terminal via a custom `Renderer2` implementation.
