@@ -89,6 +89,28 @@
     "typescript": "~5.9.2",
     "vitest": "^4.0.8"
   },
+  "keywords": [
+    "angular",
+    "ink",
+    "terminal",
+    "cli",
+    "tui",
+    "react",
+    "renderer",
+    "command-line",
+    "console",
+    "angular-cli",
+    "zoneless",
+    "signals",
+    "angular-renderer",
+    "terminal-ui",
+    "ink-renderer",
+    "angular-terminal",
+    "cli-app",
+    "interactive-cli",
+    "angular-ink",
+    "ng-ink"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
