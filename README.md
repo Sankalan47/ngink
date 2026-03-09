@@ -8,29 +8,46 @@ ngink is a rendering library that connects Angular's component model to [Ink](ht
 
 ## Table of Contents
 
-- [Requirements](#requirements)
-- [Installation](#installation)
-- [Quick Start](#quick-start)
-- [Architecture](#architecture)
-- [API Reference](#api-reference)
-  - [bootstrapCli](#bootstrapcli)
-  - [Components](#components)
-  - [Services](#services)
-- [Examples](#examples)
-- [Testing](#testing)
-- [Development Workflow](#development-workflow)
-- [Contributing](#contributing)
+- [ngink](#ngink)
+  - [Table of Contents](#table-of-contents)
+  - [Requirements](#requirements)
+  - [Installation](#installation)
+  - [Quick Start](#quick-start)
+  - [Architecture](#architecture)
+  - [API Reference](#api-reference)
+    - [bootstrapCli](#bootstrapcli)
+    - [Components](#components)
+      - [`Box`](#box)
+      - [`Text`](#text)
+      - [`Newline`](#newline)
+      - [`Spacer`](#spacer)
+      - [`Spinner`](#spinner)
+      - [`Static`](#static)
+      - [`Transform`](#transform)
+      - [`Focusable`](#focusable)
+    - [Services](#services)
+      - [`InputService`](#inputservice)
+      - [`AppService`](#appservice)
+      - [`FocusService`](#focusservice)
+      - [`TerminalService`](#terminalservice)
+      - [`CursorService`](#cursorservice)
+  - [Examples](#examples)
+  - [Testing](#testing)
+  - [Development Workflow](#development-workflow)
+    - [Project structure](#project-structure)
+  - [Contributing](#contributing)
+  - [License](#license)
 
 ---
 
 ## Requirements
 
 | Dependency | Version |
-|---|---|
-| Node.js | >= 18 |
-| Angular | ^21.0.0 |
-| React | ^19.0.0 |
-| Ink | ^6.0.0 |
+| ---------- | ------- |
+| Node.js    | >= 20   |
+| Angular    | ^21.0.0 |
+| React      | ^19.0.0 |
+| Ink        | ^6.0.0  |
 
 ---
 
@@ -106,12 +123,12 @@ Angular Component (AOT or JIT)
 
 **Bridge pattern** — React hooks cannot be called from Angular. Each feature area mounts a React component inside the root that runs the hook and writes results to module-level variables that Angular services delegate to:
 
-| Bridge | Hook(s) | Angular Service |
-|---|---|---|
-| `InputBridge` | `useInput`, `useStdin` | `InputService` |
+| Bridge                           | Hook(s)                       | Angular Service              |
+| -------------------------------- | ----------------------------- | ---------------------------- |
+| `InputBridge`                    | `useInput`, `useStdin`        | `InputService`               |
 | `FocusBridge` / `FocusableReact` | `useFocusManager`, `useFocus` | `FocusService` + `Focusable` |
-| `TerminalBridge` | `useStdout`, `useStderr` | `TerminalService` |
-| `CursorBridge` | `useCursor` | `CursorService` |
+| `TerminalBridge`                 | `useStdout`, `useStderr`      | `TerminalService`            |
+| `CursorBridge`                   | `useCursor`                   | `CursorService`              |
 
 ---
 
@@ -152,8 +169,7 @@ Selected inputs: `flexDirection`, `padding`, `margin`, `borderStyle`, `borderCol
 Renders a line of styled text.
 
 ```html
-<Text [bold]="true" [color]="'green'">Hello!</Text>
-<Text [dimColor]="true">Press q to quit</Text>
+<Text [bold]="true" [color]="'green'">Hello!</Text> <Text [dimColor]="true">Press q to quit</Text>
 ```
 
 Selected inputs: `color`, `backgroundColor`, `bold`, `italic`, `underline`, `strikethrough`, `dimColor`, `wrap`, `ariaLabel`, `ariaHidden`.
@@ -173,7 +189,7 @@ Fills available space in a flex container (equivalent to `flex: 1`).
 ```html
 <Box [flexDirection]="'row'">
   <Text>Left</Text>
-  <Spacer />
+  <spacer />
   <Text>Right</Text>
 </Box>
 ```
@@ -225,7 +241,9 @@ Makes a section of the UI focusable via `FocusService`.
 })
 export class MenuComponent {
   isFocused = false;
-  onFocus(focused: boolean) { this.isFocused = focused; }
+  onFocus(focused: boolean) {
+    this.isFocused = focused;
+  }
 }
 ```
 
@@ -263,12 +281,12 @@ export class MyComponent {
 }
 ```
 
-| Signal | Type | Description |
-|---|---|---|
+| Signal     | Type                       | Description                                     |
+| ---------- | -------------------------- | ----------------------------------------------- |
 | `keypress` | `Signal<KeyPress \| null>` | Latest key event; `null` before first keystroke |
-| `key` | `Signal<Key \| null>` | The modifier/special-key part of the event |
-| `isCtrl` | `Signal<boolean>` | Whether Ctrl was held |
-| `isShift` | `Signal<boolean>` | Whether Shift was held |
+| `key`      | `Signal<Key \| null>`      | The modifier/special-key part of the event      |
+| `isCtrl`   | `Signal<boolean>`          | Whether Ctrl was held                           |
+| `isShift`  | `Signal<boolean>`          | Whether Shift was held                          |
 
 #### `AppService`
 
@@ -278,7 +296,7 @@ Controls application lifecycle.
 import { AppService } from 'ngink';
 
 const app = inject(AppService);
-app.exit();     // Exit gracefully (wraps Ink's useApp().exit())
+app.exit(); // Exit gracefully (wraps Ink's useApp().exit())
 ```
 
 #### `FocusService`
@@ -305,11 +323,11 @@ import { TerminalService } from 'ngink';
 
 const terminal = inject(TerminalService);
 
-terminal.columns()           // Signal<number> — reactive terminal width
-terminal.rows()              // Signal<number> — reactive terminal height
+terminal.columns(); // Signal<number> — reactive terminal width
+terminal.rows(); // Signal<number> — reactive terminal height
 
-terminal.write('hello\n');        // write to stdout
-terminal.writeError('oops\n');    // write to stderr
+terminal.write('hello\n'); // write to stdout
+terminal.writeError('oops\n'); // write to stderr
 ```
 
 #### `CursorService`
@@ -321,7 +339,7 @@ import { CursorService } from 'ngink';
 
 const cursor = inject(CursorService);
 
-cursor.showCursor(5, 10);       // show cursor at column 5, row 10
+cursor.showCursor(5, 10); // show cursor at column 5, row 10
 cursor.hideCursor();
 cursor.setCursorPosition(0, 0);
 ```
@@ -332,25 +350,25 @@ cursor.setCursorPosition(0, 0);
 
 All examples live under [`examples/`](examples/). Each can be run in two modes:
 
-| Mode | Command | Description |
-|---|---|---|
-| JIT (fast) | `npm run dev:<name>` | Runs via `tsx`, no build step |
-| AOT | `npm run example:<name>` | Compiles with `ngc` then runs |
+| Mode       | Command                  | Description                   |
+| ---------- | ------------------------ | ----------------------------- |
+| JIT (fast) | `npm run dev:<name>`     | Runs via `tsx`, no build step |
+| AOT        | `npm run example:<name>` | Compiles with `ngc` then runs |
 
-| Example | Command | Demonstrates |
-|---|---|---|
-| Hello World | `npm run dev:hello` | Minimal component |
-| Counter | `npm run dev:counter` | Signals, `computed`, `effect`, auto-rerender |
-| Spinner | `npm run dev:spinner` | `<Spinner>`, `<Newline>`, `<Spacer>` |
-| Todo | `npm run dev:todo` | `@if` / `@for` structural directives |
-| Interactive | `npm run dev:interactive` | Keyboard input via `InputService` |
-| Focus | `npm run dev:focus` | `FocusService` + `<Focusable>` |
-| Terminal | `npm run dev:terminal` | `TerminalService` dimensions + output |
-| Aria | `npm run dev:aria` | `ariaRole`, `ariaLabel`, `ariaState` props |
-| Border | `npm run dev:border` | Box border styles |
-| Chat | `npm run dev:chat` | Multi-input chat-style UI |
-| Suspense | `npm run dev:suspense` | `@defer` as Angular's Suspense equivalent |
-| Table | `npm run dev:table` | Tabular layout with Box |
+| Example     | Command                   | Demonstrates                                 |
+| ----------- | ------------------------- | -------------------------------------------- |
+| Hello World | `npm run dev:hello`       | Minimal component                            |
+| Counter     | `npm run dev:counter`     | Signals, `computed`, `effect`, auto-rerender |
+| Spinner     | `npm run dev:spinner`     | `<Spinner>`, `<Newline>`, `<Spacer>`         |
+| Todo        | `npm run dev:todo`        | `@if` / `@for` structural directives         |
+| Interactive | `npm run dev:interactive` | Keyboard input via `InputService`            |
+| Focus       | `npm run dev:focus`       | `FocusService` + `<Focusable>`               |
+| Terminal    | `npm run dev:terminal`    | `TerminalService` dimensions + output        |
+| Aria        | `npm run dev:aria`        | `ariaRole`, `ariaLabel`, `ariaState` props   |
+| Border      | `npm run dev:border`      | Box border styles                            |
+| Chat        | `npm run dev:chat`        | Multi-input chat-style UI                    |
+| Suspense    | `npm run dev:suspense`    | `@defer` as Angular's Suspense equivalent    |
+| Table       | `npm run dev:table`       | Tabular layout with Box                      |
 
 ---
 

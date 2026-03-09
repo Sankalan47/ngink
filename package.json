@@ -7,6 +7,11 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "default": "./dist/index.js"
+    },
+    "./testing": {
+      "types": "./dist/testing.d.ts",
+      "import": "./dist/testing.js",
+      "default": "./dist/testing.js"
     }
   },
   "main": "./dist/index.js",
@@ -23,7 +28,7 @@
     "build:lib": "ngc -p tsconfig.lib.json",
     "build:node": "ngc -p tsconfig.node.json",
     "watch:node": "ngc -p tsconfig.node.json --watch",
-    "prepublishOnly": "npm run build:lib",
+    "prepublishOnly": "rm -rf dist && npm run build:lib",
     "example:hello": "npm run build:node && node out-tsc/node/examples/hello-world/main.js",
     "example:counter": "npm run build:node && node out-tsc/node/examples/counter/main.js",
     "example:spinner": "npm run build:node && node out-tsc/node/examples/spinner/main.js",
@@ -49,7 +54,7 @@
     "example:table": "npm run build:node && node out-tsc/node/examples/table/main.js",
     "dev:table": "tsx --tsconfig tsconfig.node.json examples/table/main.ts"
   },
-  "private": true,
+  "private": false,
   "type": "module",
   "packageManager": "npm@11.4.1",
   "peerDependencies": {
