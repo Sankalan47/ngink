@@ -1,6 +1,6 @@
 {
   "name": "ng-ink",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Angular-to-terminal rendering library using Ink",
   "exports": {
     ".": {
