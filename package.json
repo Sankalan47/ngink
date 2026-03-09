@@ -1,6 +1,6 @@
 {
-  "name": "ngink",
-  "version": "0.0.0",
+  "name": "ng-ink",
+  "version": "0.1.0",
   "description": "Angular-to-terminal rendering library using Ink",
   "exports": {
     ".": {
@@ -89,5 +89,13 @@
     "typescript": "~5.9.2",
     "vitest": "^4.0.8"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Sankalan47/ngink.git"
+  },
+  "homepage": "https://github.com/Sankalan47/ngink#readme",
+  "bugs": {
+    "url": "https://github.com/Sankalan47/ngink/issues"
+  }
 }
