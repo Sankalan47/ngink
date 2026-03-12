@@ -17,8 +17,9 @@ export interface InkNode {
   children: InkNode[];
   value?: string;
   parent?: InkNode;
+  version: number;
 }
 
 export function createNode(type: InkNodeType): InkNode {
-  return { type, props: {}, children: [] };
+  return { type, props: {}, children: [], version: 0 };
 }

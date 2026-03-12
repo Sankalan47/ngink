@@ -35,6 +35,15 @@ export function scheduleRerender(): void {
   });
 }
 
+function markDirty(node: InkNode): void {
+  let n: InkNode | undefined = node;
+  while (n) {
+    n.version++;
+    n = n.parent;
+  }
+  scheduleRerender();
+}
+
 // Debug helper — use console.error (Ink owns stdout)
 export function debugNodeTree(node: InkNode, depth = 0): void {
   console.error(
@@ -68,7 +77,7 @@ export class InkRenderer implements Renderer2 {
   appendChild(parent: InkNode, newChild: InkNode): void {
     newChild.parent = parent;
     parent.children.push(newChild);
-    scheduleRerender();
+    markDirty(parent);
   }
 
   insertBefore(parent: InkNode, newChild: InkNode, refChild: InkNode, _isMove?: boolean): void {
@@ -79,7 +88,7 @@ export class InkRenderer implements Renderer2 {
     } else {
       parent.children.splice(idx, 0, newChild);
     }
-    scheduleRerender();
+    markDirty(parent);
   }
 
   removeChild(parent: InkNode | null, oldChild: InkNode, _isHostElement?: boolean): void {
@@ -92,7 +101,7 @@ export class InkRenderer implements Renderer2 {
       actualParent.children.splice(idx, 1);
     }
     oldChild.parent = undefined;
-    scheduleRerender();
+    markDirty(actualParent);
   }
 
   selectRootElement(_selectorOrNode: any, _preserveContent?: boolean): InkNode {
@@ -112,23 +121,27 @@ export class InkRenderer implements Renderer2 {
   }
 
   setAttribute(el: InkNode, name: string, value: string, _namespace?: string | null): void {
+    if (el.props[name] === value) return;
     el.props[name] = value;
-    scheduleRerender();
+    markDirty(el);
   }
 
   removeAttribute(el: InkNode, name: string, _namespace?: string | null): void {
+    if (!(name in el.props)) return;
     delete el.props[name];
-    scheduleRerender();
+    markDirty(el);
   }
 
   setProperty(el: InkNode, name: string, value: any): void {
+    if (el.props[name] === value) return;
     el.props[name] = value;
-    scheduleRerender();
+    markDirty(el);
   }
 
   setValue(node: InkNode, value: string): void {
+    if (node.value === value) return;
     node.value = value;
-    scheduleRerender();
+    markDirty(node);
   }
 
   listen(_target: any, _eventName: string, _callback: (event: any) => boolean | void): () => void {
