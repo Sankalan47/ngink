@@ -1,0 +1,25 @@
+{
+  "name": "create-ngink-app",
+  "version": "0.1.0",
+  "description": "Create a new ng-ink terminal UI app",
+  "type": "module",
+  "bin": {
+    "create-ngink-app": "./bin/index.js"
+  },
+  "files": [
+    "bin",
+    "templates"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "ng-ink",
+    "angular",
+    "cli",
+    "terminal",
+    "ink",
+    "create-app"
+  ],
+  "license": "MIT"
+}
